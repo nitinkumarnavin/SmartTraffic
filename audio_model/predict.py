@@ -1,17 +1,17 @@
+import joblib
 import librosa
 import numpy as np
-import joblib
 
 model = joblib.load(
     "audio_model/siren_model.pkl"
 )
 
-file_path = input(
+audio_path = input(
     "Enter audio file path: "
 )
 
 audio, sr = librosa.load(
-    file_path,
+    audio_path,
     sr=22050
 )
 
@@ -35,7 +35,9 @@ prediction = model.predict(
 labels = {
     0: "Ambulance",
     1: "Police",
-    2: "Traffic Noise"
+    2: "Firetruck",
+    3: "Traffic Noise",
+    4: "Background"
 }
 
 print(
