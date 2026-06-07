@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Smart Traffic Management System
 
 ## Member 3 Work
@@ -18,3 +19,7 @@ data/
 docs/
 models/
 simulation/
+
+# SmartTraffic
+AI-Based Smart Traffic Management System
+
