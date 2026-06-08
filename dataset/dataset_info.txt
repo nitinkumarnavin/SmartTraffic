@@ -1,0 +1,20 @@
+Member 2 - Siren Audio Dataset
+
+Classes Required:
+
+1. Ambulance
+2. Police
+3. Fire Truck
+4. Traffic Noise
+5. Background Noise
+
+Target:
+100+ audio files per class
+
+Folder Structure:
+dataset/
+├── ambulance/
+├── police/
+├── firetruck/
+├── traffic_noise/
+└── background/
