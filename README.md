@@ -1,6 +1,18 @@
 <<<<<<< HEAD
 # Smart Traffic Management System
 
+## Member 2 Work
+
+### Audio Detection
+- Siren Classification
+- Real-Time Audio Detection
+
+### Accident Detection
+- Vehicle Detection
+- Vehicle Tracking
+- Speed Tracking
+- Accident Alert Logic
+
 ## Member 3 Work
 
 ### Completed Tasks
