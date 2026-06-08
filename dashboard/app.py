@@ -1,22 +1,46 @@
 import streamlit as st
 import pandas as pd
+import sys
+import os
+
+# Add project root path
+sys.path.append(
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..")
+    )
+)
+
+# Import APIs
+from audio_model.siren_detector import detect_siren
+from accident_detection.accident_api import detect_accident
+
+st.set_page_config(
+    page_title="Smart Traffic Management System",
+    layout="wide"
+)
 
 st.title("🚦 Smart Traffic Management System")
 
-st.write("Member 3 Dashboard")
+st.write("Integrated Dashboard")
+
+# =========================
+# Sidebar
+# =========================
+
 st.sidebar.title("Control Panel")
+
 traffic_level = st.sidebar.selectbox(
     "Traffic Level",
     ["Low", "Medium", "High"]
 )
 
 st.write("Current Traffic Level:", traffic_level)
-emergency_count = 0
-if emergency_count == 1:
-    st.success("🚑 Emergency Priority Activated")
-    st.info("🚑 Emergency Green Corridor Enabled")
 
-elif traffic_level == "Low":
+# =========================
+# Signal Logic
+# =========================
+
+if traffic_level == "Low":
     st.success("🟢 Signal Status: GREEN")
     st.info("⏱ Green Signal Time: 30 Seconds")
 
@@ -26,10 +50,11 @@ elif traffic_level == "Medium":
 
 else:
     st.error("🔴 Signal Status: RED")
-    st.info("⏱ Green Signal Time: 90 Seconds") 
-if st.button("⚠️ Accident Detected"):
-    st.warning("⚠️ Accident Reported on Road")
+    st.info("⏱ Green Signal Time: 90 Seconds")
 
+# =========================
+# Metrics
+# =========================
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -41,13 +66,9 @@ else:
     vehicles = 410
 
 col1.metric("Total Vehicles", vehicles)
-emergency_count = 0
 
-if st.button("🚑 Emergency Vehicle Detected"):
-    emergency_count = 1
-    st.error("🚨 Emergency Vehicle Approaching")
+col2.metric("Emergency Vehicles", 0)
 
-col2.metric("Emergency Vehicles", emergency_count)
 if traffic_level == "Low":
     accidents = 0
 elif traffic_level == "Medium":
@@ -56,29 +77,88 @@ else:
     accidents = 3
 
 col3.metric("Accidents", accidents)
-col4.metric("Signals Active", "4")
 
+col4.metric("Signals Active", 4)
+
+# =========================
 # Traffic Density
-st.header("Traffic Density")
+# =========================
+
+st.header("📊 Traffic Density")
 
 traffic_data = pd.DataFrame({
     "Road": ["Road A", "Road B", "Road C", "Road D"],
     "Vehicles": [120, 80, 150, 60]
 })
 
-st.bar_chart(traffic_data.set_index("Road"))
+st.bar_chart(
+    traffic_data.set_index("Road")
+)
 
-# Emergency Vehicle
+# =========================
+# Emergency Vehicle Detection
+# =========================
+
 st.header("🚑 Emergency Vehicle Detection")
 
-st.success("No Emergency Vehicle Detected")
+if st.button("Run Siren Detection"):
 
+    try:
+
+        result = detect_siren(
+            "dataset/ambulance/u_xg7ssi08yr-ambulance-siren-363656.mp3"
+        )
+
+        st.error(
+            f"🚨 Detected: {result}"
+        )
+
+    except Exception as e:
+
+        st.error(
+            f"Audio Detection Error: {e}"
+        )
+
+else:
+
+    st.success(
+        "No Emergency Vehicle Detected"
+    )
+
+# =========================
 # Accident Detection
+# =========================
+
 st.header("⚠️ Accident Detection")
 
-st.success("No Accident Detected")
+if st.button("Run Accident Detection"):
 
+    try:
+
+        result = detect_accident(
+            "accident_detection/videos/test.mp4"
+        )
+
+        st.warning(result)
+
+    except Exception as e:
+
+        st.error(
+            f"Accident Detection Error: {e}"
+        )
+
+else:
+
+    st.success(
+        "No Accident Detected"
+    )
+
+# =========================
 # Signal Status
+# =========================
+
 st.header("🚦 Signal Status")
 
-st.info("All Traffic Signals Working Normally")
+st.info(
+    "All Traffic Signals Working Normally"
+)
