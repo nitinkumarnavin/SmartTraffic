@@ -176,3 +176,22 @@ with col2:
     st.metric("Emergency Route", "Active")
 
 st.success("Network Status: Connected")
+
+st.markdown("---")
+st.subheader("🚑 Emergency Route Simulation")
+
+route_active = True
+
+if route_active:
+    st.success("🚑 Emergency Route Activated")
+    st.info("Route: Hospital → Junction A → Junction B → Accident Zone")
+else:
+    st.warning("No Emergency Route Active")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric("Route Distance", "4.5 km")
+
+with col2:
+    st.metric("Estimated Arrival", "6 min")
