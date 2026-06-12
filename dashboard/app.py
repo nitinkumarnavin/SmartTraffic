@@ -162,3 +162,17 @@ st.header("🚦 Signal Status")
 st.info(
     "All Traffic Signals Working Normally"
 )
+st.markdown("---")
+st.subheader("🌐 Network Simulation Status")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric("Packet Delivery Rate", "98%")
+    st.metric("Average Delay", "12 ms")
+
+with col2:
+    st.metric("Network Nodes", "25")
+    st.metric("Emergency Route", "Active")
+
+st.success("Network Status: Connected")
