@@ -195,3 +195,18 @@ with col1:
 
 with col2:
     st.metric("Estimated Arrival", "6 min")
+
+st.markdown("---")
+
+st.subheader("📍 Smart Traffic Summary")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.info("Traffic Flow: Normal")
+
+with col2:
+    st.success("Emergency Response Ready")
+
+with col3:
+    st.warning("System Monitoring Active")
