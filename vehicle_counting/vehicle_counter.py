@@ -2,9 +2,9 @@ from ultralytics import YOLO
 import cv2
 
 # Load model
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8m.pt")
 
-video_path = r"dataset/traffic_videos/M6 Motorway Traffic [PNCJQkvALVc].mp4"
+video_path = r"dataset/traffic_videos/Traffic Intersection Drone View - 4K [bfc2wsX29zk].mp4"
 
 cap = cv2.VideoCapture(video_path)
 
