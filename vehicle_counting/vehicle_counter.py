@@ -1,15 +1,22 @@
 from ultralytics import YOLO
 import cv2
+import matplotlib.pyplot as plt
 
 # Load model
+
 model = YOLO("yolov8n.pt")
 
 # Video path
+
 video_path = r"vehicle_counting/test(1).mp4"
 
 cap = cv2.VideoCapture(video_path)
 
 vehicle_classes = ["car", "truck", "bus", "motorcycle"]
+
+# Store vehicle counts for graph
+
+vehicle_history = []
 
 while cap.isOpened():
     success, frame = cap.read()
@@ -17,10 +24,6 @@ while cap.isOpened():
     if not success:
         break
 
-    # Resize for better detection of small vehicles
-    #frame = cv2.resize(frame, (1280, 720))
-
-    # Vehicle tracking
     results = model(
         frame,
         conf=0.15,
@@ -63,7 +66,10 @@ while cap.isOpened():
                     2
                 )
 
-    # Vehicle count display
+    # Save count for graph
+    vehicle_history.append(vehicle_count)
+
+    # Display vehicle count
     cv2.putText(
         frame,
         f"Vehicles Detected: {vehicle_count}",
@@ -81,3 +87,25 @@ while cap.isOpened():
 
 cap.release()
 cv2.destroyAllWindows()
+
+# -------------------------
+
+# VEHICLE COUNT GRAPH
+
+# -------------------------
+
+plt.figure(figsize=(10, 5))
+
+plt.plot(vehicle_history)
+
+plt.title("Vehicle Count Over Time")
+plt.xlabel("Frame Number")
+plt.ylabel("Vehicle Count")
+
+plt.grid(True)
+
+plt.savefig("vehicle_count_graph.png")
+
+plt.show()
+
+print("Graph saved as vehicle_count_graph.png")
