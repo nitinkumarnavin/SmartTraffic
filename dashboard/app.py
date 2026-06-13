@@ -162,3 +162,51 @@ st.header("🚦 Signal Status")
 st.info(
     "All Traffic Signals Working Normally"
 )
+st.markdown("---")
+st.subheader("🌐 Network Simulation Status")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric("Packet Delivery Rate", "98%")
+    st.metric("Average Delay", "12 ms")
+
+with col2:
+    st.metric("Network Nodes", "25")
+    st.metric("Emergency Route", "Active")
+
+st.success("Network Status: Connected")
+
+st.markdown("---")
+st.subheader("🚑 Emergency Route Simulation")
+
+route_active = True
+
+if route_active:
+    st.success("🚑 Emergency Route Activated")
+    st.info("Route: Hospital → Junction A → Junction B → Accident Zone")
+else:
+    st.warning("No Emergency Route Active")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.metric("Route Distance", "4.5 km")
+
+with col2:
+    st.metric("Estimated Arrival", "6 min")
+
+st.markdown("---")
+
+st.subheader("📍 Smart Traffic Summary")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.info("Traffic Flow: Normal")
+
+with col2:
+    st.success("Emergency Response Ready")
+
+with col3:
+    st.warning("System Monitoring Active")
